@@ -1,0 +1,14 @@
+{
+  "name": "chatapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.2"
+  },
+    "tasks": {
+    "dev": "deno run --allow-all --watch main.ts"
+  }
+}

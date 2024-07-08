@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChatApp</title>
+
+
+
+  <script type="module">
+    import { io } from 'https://cdn.socket.io/4.3.2/socket.io.esm.min.js';
+    const socket = io({
+      auth: {
+        serverOffset: 0
+      }
+    });
+
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
+    const messages = document.getElementById('messages');
+    let userName;
+
+      // Solicita el nombre de usuario
+      function requestUserName() {
+        userName = prompt("Por favor, introduce tu nombre para el chat:");
+        if (!userName) {
+          userName = "Usuario Anónimo";
+        }
+      }
+
+      // Solicitar el nombre de usuario al cargar la página por primera vez
+      document.addEventListener("DOMContentLoaded", () => {
+        requestUserName();
+      });
+
+
+
+    socket.on('chat message', (info, serverOffset) => {//esto recibe el mensaje del WS emitido por el servidor
+      const { user, message, time } = info;
+      const item = document.createElement("li");
+        item.textContent = `${user}: ${message}`;
+        const timeElement = document.createElement("span");
+        timeElement.textContent = time;
+        timeElement.className = "time";
+        item.appendChild(timeElement);
+
+        messages.appendChild(item);
+
+        socket.auth.serverOffset = serverOffset;
+      
+      messages.scrollTop = messages.scrollHeight;
+    });
+
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault()
+      if (input.value) {
+        socket.emit('chat message', { user: userName, message: input.value }) //esto manda a traves del WS un array ["chat message","Hola mundo"]
+        input.value = ''
+      }
+    });
+
+  </script>
+
+  
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+  
+    }
+
+    :root {
+      color-scheme: light dark;
+      --primary-color: #2a66ce;
+      --secondary-color: #0cf;
+      --background-color: #f7f7f7;
+      --text-color: #333;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      display: grid;
+      /* place-content: center; */
+      height: 100vh;
+      padding: 36px 36px 36px 36px;
+      grid-template-rows: 1fr;
+    }
+
+
+
+    #chat-banner {
+      background-color: white;
+      
+      text-align: center;
+      border-top: 2px solid var(--primary-color);
+      border-right: 2px solid var(--primary-color);
+      border-left: 2px solid var(--primary-color);
+      border-bottom: 1px solid var(--primary-color);
+      border-top-right-radius: 8px;
+      border-top-left-radius: 8px; 
+    }
+
+    h1 {
+      color: var(--primary-color);
+      font-size: 2em;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+     
+  
+ 
+    #chat {
+      border: 2px solid #2a66ce;
+      border-bottom-right-radius: 8px;
+      border-bottom-left-radius: 8px;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      position: relative; 
+    }
+
+
+    #messages {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow-y: scroll;
+      height: 100%;
+      scroll-behavior: smooth;
+      padding-bottom: 48px;
+    }
+
+    #messages>li {
+      padding: right 0px;
+    }
+
+    #messages>li:nth-child(odd) { /*Esto nos permite cambiar el color de los mensajes pares*/
+      background: #dddddd;
+    }
+
+
+    #form {
+      bottom: 0;
+      display: flex;
+      border-top: 2px solid #2a66ce; 
+      height: 48px;
+      left: 0;
+      padding: 4px;
+      position: absolute;
+      right: 0;
+    }
+
+    #input {
+      border-radius: 9999px;
+      border: 2px solid #2a66ce;
+      flex: 1;
+      padding: 0 8px;
+    }
+
+    #input:focus {
+      outline: 0;
+    }
+
+    #form>button {
+      background: white;
+      color: #fff;
+      font-size: 15pt;
+      border: 2px solid #2a66ce;
+      border-radius: 9999px;
+      margin-right: 3px;
+      margin-left: 3px;
+      padding-bottom: 0;
+      
+    }
+
+    #form>button:hover {
+      background: #0cf;
+    }
+
+    .time {
+      margin-left: 90%; /* Alinea el elemento a la derecha */
+      color: gray; /* Color del tiempo */
+      font-size: 0.8rem; /* Tamaño de fuente del tiempo */
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="chat-container">
+      <div id="chat-banner">
+        <h1>Chat App</h1>
+      </div>
+    <section id="chat">
+      <ul id="messages"></ul>
+      <form id="form">
+        <input type="text" name="message" id="input" placeholder="Escribe un mensaje" autocomplete="off" />      
+        <button  type="submit">&#9992;&#65039;</button> <!-- Este codigo: &#9992;&#65039; equivale a el emoji puesto -->
+          </form>
+      </form> 
+    </section>
+  </div>
+
+</body>
+
+
+
+</html>
