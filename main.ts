@@ -1,6 +1,5 @@
-/// <reference lib="deno.ns" />
-
 import express, { Application, Request, Response } from "npm:express@4.18.2";
+import process from "node:process";
 import http from "node:http";
 import { Server, Socket } from "socket.io";
 import logger from "morgan";
@@ -17,7 +16,7 @@ const app: Application = express();
 
 app.use(logger('dev'));
 app.get('/', (_req: Request, res: Response) => {
-  res.sendFile(Deno.cwd() + "/index.html");
+  res.sendFile(process.cwd() + "/index.html");
 });
 
 const httpserver: http.Server = http.createServer(app);

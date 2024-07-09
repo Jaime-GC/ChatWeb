@@ -2,12 +2,14 @@
   "version": "3",
   "packages": {
     "specifiers": {
-      "npm:@libsql/client@^0.6.2": "npm:@libsql/client@0.6.2",
+      "npm:@libsql/client@0.6.2": "npm:@libsql/client@0.6.2",
       "npm:@types/node": "npm:@types/node@18.16.19",
       "npm:dotenv@^16.4.5": "npm:dotenv@16.4.5",
       "npm:express@4.18.2": "npm:express@4.18.2",
       "npm:libsql": "npm:libsql@0.4.0-pre.9",
+      "npm:morgan@1.10.0": "npm:morgan@1.10.0",
       "npm:morgan@^1.10.0": "npm:morgan@1.10.0",
+      "npm:socket.io@4.7.5": "npm:socket.io@4.7.5",
       "npm:socket.io@^4.7.5": "npm:socket.io@4.7.5"
     },
     "npm": {
@@ -847,7 +849,6 @@
   "workspace": {
     "packageJson": {
       "dependencies": [
-        "npm:@libsql/client@^0.6.2",
         "npm:dotenv@^16.4.5",
         "npm:express@4.18.2",
         "npm:libsql",
