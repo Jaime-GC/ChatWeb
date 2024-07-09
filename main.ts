@@ -1,3 +1,5 @@
+/// <reference lib="deno.ns" />
+
 import express, { Application, Request, Response } from "npm:express@4.18.2";
 import http from "node:http";
 import { Server, Socket } from "socket.io";
