@@ -2,7 +2,7 @@ import express, { Application, Request, Response } from "npm:express@4.18.2";
 import http from "node:http";
 import { Server, Socket } from "socket.io";
 import logger from "morgan";
-import {createClient} from "@libsql/client"
+import {createClient} from "npm​:​@libsql/client​@^0.6.2";
 import { config } from "https://deno.land/x/dotenv/mod.ts";
 
 
