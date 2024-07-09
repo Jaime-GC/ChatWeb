@@ -3,9 +3,24 @@
     "dev": "deno run --allow-all --watch main.ts"
   },
   "importMap": "./import_map.json",
+  
+  
+
+
   "compilerOptions": {
-    "lib": ["esnext"],
-    "target": "esnext",
-    "module": "esnext"
+
+    "target": "es6",
+
+    "module": "commonjs",
+
+    "strict": true,
+
+    "esModuleInterop": true,
+
+    "lib": ["es6", "dom"]
+
   }
+
+
+
 }
