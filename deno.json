@@ -7,7 +7,7 @@
   "dependencies": {
     "express": "^4.19.2",
     "socket.io": "^4.7.2",
-    "@libsql/client": "^0.6.2",
+    "@libsql/client": "^0.6.2"
   },
     "tasks": {
     "dev": "deno run --allow-all --watch main.ts"
